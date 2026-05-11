@@ -346,9 +346,7 @@
         Electricity is the invisible motive force that has transformed
         civilisation within living memory. It flows through copper wire
         as water through a conduit, powering the electric lamp, the wireless
-        set, and the motor-tram alike. One need not grasp its mathematical
-        mysteries to appreciate that we inhabit an age of electrical wonder
-        unlike any that our grandfathers might have conceived possible.
+        set, and the motor-tram alike.
       </p>
     </div>
 
@@ -357,9 +355,14 @@
     </div>
 
     <div class="radio-audio">
-      <audio controls preload="metadata">
-        <source src="assets/sample.wav" type="audio/wav" />
-      </audio>
+      <audio id="sampleAudio" preload="metadata" src="assets/sample.wav"></audio>
+      <button class="audio-btn" id="audioPlay" aria-label="Play">&#9654;</button>
+      <div class="audio-track" id="audioTrack" role="slider" aria-label="Seek">
+        <div class="audio-fill" id="audioFill">
+          <span class="audio-thumb"></span>
+        </div>
+      </div>
+      <span class="audio-time" id="audioTime">0:00 / 0:00</span>
     </div>
   </div>
 </section>
@@ -452,5 +455,54 @@ reachy-mini-daemon --sim
   </p>
 </footer>
 
+<script>
+(function () {
+  const audio = document.getElementById('sampleAudio');
+  const btn   = document.getElementById('audioPlay');
+  const track = document.getElementById('audioTrack');
+  const fill  = document.getElementById('audioFill');
+  const time  = document.getElementById('audioTime');
+
+  function fmt(s) {
+    if (isNaN(s)) return '0:00';
+    return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  }
+
+  btn.addEventListener('click', function () {
+    if (audio.paused) {
+      audio.play();
+      btn.innerHTML = '&#10074;&#10074;';
+      btn.classList.add('playing');
+    } else {
+      audio.pause();
+      btn.innerHTML = '&#9654;';
+      btn.classList.remove('playing');
+    }
+  });
+
+  audio.addEventListener('timeupdate', function () {
+    var pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
+    fill.style.width = pct + '%';
+    time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+  });
+
+  audio.addEventListener('loadedmetadata', function () {
+    time.textContent = '0:00 / ' + fmt(audio.duration);
+  });
+
+  audio.addEventListener('ended', function () {
+    btn.innerHTML = '&#9654;';
+    btn.classList.remove('playing');
+    fill.style.width = '0%';
+    time.textContent = '0:00 / ' + fmt(audio.duration);
+  });
+
+  track.addEventListener('click', function (e) {
+    var rect = track.getBoundingClientRect();
+    var pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    if (audio.duration) audio.currentTime = pct * audio.duration;
+  });
+}());
+</script>
 </body>
 </html>

@@ -705,20 +705,84 @@ section {
 }
 
 
-/* Audio player inside radio panel */
+/* Custom vintage audio player */
 .radio-audio {
   background: #080604;
   border-top: 1px solid rgba(212,168,87,0.18);
-  padding: 0.8rem 1.2rem;
+  padding: 0.7rem 1.4rem;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
-.radio-audio audio {
-  width: 100%;
-  max-width: 500px;
+
+.audio-btn {
+  width: 32px;
   height: 32px;
-  filter: sepia(0.4) hue-rotate(5deg);
-  accent-color: var(--gold);
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-dim);
+  background: transparent;
+  color: var(--gold);
+  font-size: 0.72rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  padding: 0;
+  line-height: 1;
+}
+.audio-btn:hover {
+  border-color: var(--gold);
+  background: rgba(212,168,87,0.1);
+  box-shadow: 0 0 10px rgba(212,168,87,0.2);
+}
+.audio-btn.playing {
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(212,168,87,0.25);
+}
+
+.audio-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(212,168,87,0.15);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  /* Larger click target */
+  padding: 8px 0;
+  margin: -8px 0;
+  background-clip: content-box;
+}
+
+.audio-fill {
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.1s linear;
+  position: relative;
+  pointer-events: none;
+}
+
+.audio-thumb {
+  position: absolute;
+  right: -5px;
+  top: -4px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(212,168,87,0.5);
+}
+
+.audio-time {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--gold-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* ══════════════════════  INSTALL SECTION  ═══════════════════════ */
