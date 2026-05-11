@@ -56,7 +56,7 @@ def test_resample_shape():
     from reachy_mini_talkie.tts import _resample
     # 1 second of 24 kHz audio → should come out as ~16 kHz
     audio_24k = np.random.randn(24_000).astype(np.float32)
-    audio_16k = _resample(audio_24k)
+    audio_16k = _resample(audio_24k, target_rate=16_000)
     assert audio_16k.dtype == np.float32
     assert abs(len(audio_16k) - 16_000) < 10   # within 10 samples
 

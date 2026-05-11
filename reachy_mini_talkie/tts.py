@@ -1,4 +1,4 @@
-"""Kokoro-82M TTS wrapper — British male voice, resampled to 16 kHz for Reachy."""
+"""Kokoro-82M TTS wrapper — British male voice, resampled to robot's output rate."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import logging
 from typing import Generator
 
 import numpy as np
-import scipy.signal
+from scipy.signal import resample
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,6 @@ logger = logging.getLogger(__name__)
 DEFAULT_VOICE = "bm_george"
 DEFAULT_SPEED = 0.92      # slightly slower for 1930 broadcaster cadence
 KOKORO_SAMPLE_RATE = 24_000
-REACHY_SAMPLE_RATE = 16_000
 
 
 class KokoroTTS:
@@ -30,27 +29,22 @@ class KokoroTTS:
         self._speed = speed
         logger.info("Kokoro TTS ready.")
 
-    def synthesise(self, text: str) -> Generator[np.ndarray, None, None]:
+    def synthesise(self, text: str, output_sample_rate: int) -> Generator[np.ndarray, None, None]:
         """
-        Yields 16 kHz float32 mono audio chunks, one per sentence.
-        Streams so the robot can start playing before the full text is done.
+        Yields float32 mono audio chunks at output_sample_rate, one per sentence.
+        Streams so the robot starts playing before the full reply is synthesised.
         """
         for _gs, _ps, audio_24k in self._pipeline(
             text, voice=self._voice, speed=self._speed
         ):
             if audio_24k is None or len(audio_24k) == 0:
                 continue
-            audio_16k = _resample(audio_24k)
-            yield audio_16k
-
-    def synthesise_to_array(self, text: str) -> np.ndarray:
-        chunks = list(self.synthesise(text))
-        if not chunks:
-            return np.zeros(0, dtype=np.float32)
-        return np.concatenate(chunks)
+            audio_out = _resample(audio_24k, output_sample_rate)
+            yield audio_out
 
 
-def _resample(audio: np.ndarray) -> np.ndarray:
-    """Downsample from 24 kHz to 16 kHz (ratio 2:3)."""
-    resampled = scipy.signal.resample_poly(audio, up=2, down=3)
+def _resample(audio: np.ndarray, target_rate: int) -> np.ndarray:
+    """Resample from Kokoro's 24 kHz to the robot's output sample rate."""
+    n_target = int(target_rate * len(audio) / KOKORO_SAMPLE_RATE)
+    resampled = resample(audio, n_target)
     return resampled.astype(np.float32)

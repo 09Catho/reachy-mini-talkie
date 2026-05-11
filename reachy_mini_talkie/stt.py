@@ -11,8 +11,8 @@ import numpy as np
 
 logger = logging.getLogger(__name__)
 
-SAMPLE_RATE = 16_000        # Reachy mic native rate
-CHUNK_FRAMES = 1_600        # 100 ms per chunk
+SAMPLE_RATE = 16_000        # Reachy mic native rate (confirmed in SDK docs)
+CHUNK_FRAMES = 1_600        # 100 ms per chunk @ 16 kHz
 ENERGY_THRESHOLD = 0.01     # RMS above this = speech
 SILENCE_TAIL_S = 0.8        # seconds of silence to end an utterance
 MIN_SPEECH_S = 0.4          # minimum speech length to bother transcribing
@@ -83,22 +83,18 @@ class VADCapture:
 
     def _loop(self) -> None:
         robot = self._robot
-        robot.media.start_recording()
-        try:
-            while not self._stop_event.is_set():
-                if self._push_to_talk:
-                    self._manual_recording.wait()
-                    utterance = self._capture_until_manual_stop(robot)
-                else:
-                    utterance = self._capture_with_vad(robot)
+        while not self._stop_event.is_set():
+            if self._push_to_talk:
+                self._manual_recording.wait()
+                utterance = self._capture_until_manual_stop(robot)
+            else:
+                utterance = self._capture_with_vad(robot)
 
-                if utterance and len(utterance) > 0:
-                    text = self._stt.transcribe(utterance)
-                    if text:
-                        logger.info("Heard: %s", text)
-                        self._on_utterance(text)
-        finally:
-            robot.media.stop_recording()
+            if utterance is not None and len(utterance) > 0:
+                text = self._stt.transcribe(utterance)
+                if text:
+                    logger.info("Heard: %s", text)
+                    self._on_utterance(text)
 
     def _capture_with_vad(self, robot) -> np.ndarray | None:
         """Collect audio while speech detected; return after silence tail."""

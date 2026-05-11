@@ -1,3 +1,8 @@
+---
+tags:
+  - reachy_mini_python_app
+---
+
 # 📻 The 1930 Broadcaster
 
 > *"Good evening. This is the British Broadcasting Corporation."*

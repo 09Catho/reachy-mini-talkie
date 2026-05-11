@@ -34,5 +34,8 @@ Repository = "https://github.com/pollen-robotics/reachy-mini-talkie"
 sim = ["reachy-mini[mujoco]>=1.7.1"]
 dev = ["pytest>=8", "pytest-timeout"]
 
+[project.entry-points."reachy_mini_apps"]
+reachy_mini_talkie = "reachy_mini_talkie.main:TalkieApp"
+
 [tool.hatch.build.targets.wheel]
 packages = ["reachy_mini_talkie"]

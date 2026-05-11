@@ -3,13 +3,8 @@ Reachy Mini × Talkie-1930: The 1930 Broadcaster
 ================================================
 State machine: IDLE → LISTENING → THINKING → SPEAKING → IDLE
 
-Usage (via SDK):
-    from reachy_mini_talkie import TalkieApp
-    app = TalkieApp()
-    # SDK calls app.run(reachy_mini, stop_event) in a thread.
-
-Standalone test (no hardware):
-    python -m reachy_mini_talkie
+The daemon runs this as: python -m reachy_mini_talkie.main
+It calls app.wrapped_run() which connects to the robot then calls run().
 """
 
 from __future__ import annotations
@@ -75,6 +70,7 @@ class TalkieApp:
         choreographer.start(reachy_mini)
         choreographer.set_mood(Mood.IDLE)
 
+        reachy_mini.media.start_recording()
         vad.start(reachy_mini)
         reachy_mini.media.start_playing()
 
@@ -88,6 +84,7 @@ class TalkieApp:
             vad.stop()
             choreographer.stop()
             reachy_mini.media.stop_playing()
+            reachy_mini.media.stop_recording()
             logger.info("=== The 1930 Broadcaster stopped ===")
 
     # ------------------------------------------------------------------ #
@@ -144,61 +141,25 @@ class TalkieApp:
     # ------------------------------------------------------------------ #
 
     def _speak(self, robot, tts: KokoroTTS, choreographer: Choreographer, text: str) -> None:
-        for chunk in tts.synthesise(text):
+        import time
+        out_rate = robot.media.get_output_audio_samplerate()
+
+        for chunk in tts.synthesise(text, output_sample_rate=out_rate):
             if chunk is None or len(chunk) == 0:
                 continue
             # Feed RMS to choreographer for head-bob modulation
             rms = float(np.sqrt(np.mean(chunk ** 2)))
             choreographer.update_rms(rms)
 
-            # Reachy expects (N, 1) or (N, 2) float32 @ 16 kHz
+            # push_audio_sample is non-blocking — must wait for playback to finish
             stereo = np.stack([chunk, chunk], axis=1)
             robot.media.push_audio_sample(stereo)
-
-
-# ------------------------------------------------------------------ #
-# Standalone / simulation entry point
-# ------------------------------------------------------------------ #
-
-def _run_simulation() -> None:
-    """Quick smoke-test: run against a mock robot (no hardware needed)."""
-    import time
-
-    class MockMedia:
-        def start_recording(self): pass
-        def stop_recording(self): pass
-        def start_playing(self): pass
-        def stop_playing(self): pass
-        def get_audio_sample(self):
-            time.sleep(0.1)
-            return np.zeros((1600, 2), dtype=np.float32)
-        def push_audio_sample(self, _samples): pass
-        def get_DoA(self): return 0.0, False
-
-    class MockHeadPose:
-        pass
-
-    class MockRobot:
-        media = MockMedia()
-        def set_target(self, **_): pass
-        def goto_target(self, **_): pass
-
-    stop = threading.Event()
-
-    app = TalkieApp()
-
-    # Simulate one canned utterance then stop
-    def _feeder():
-        time.sleep(3)
-        app._utterance_queue.put("Good evening. What is electricity?")
-        time.sleep(12)
-        stop.set()
-
-    t = threading.Thread(target=_feeder, daemon=True)
-    t.start()
-
-    app.run(MockRobot(), stop)
+            time.sleep(len(chunk) / out_rate)
 
 
 if __name__ == "__main__":
-    _run_simulation()
+    app = TalkieApp()
+    try:
+        app.wrapped_run()
+    except KeyboardInterrupt:
+        app.stop()
