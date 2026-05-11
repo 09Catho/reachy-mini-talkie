@@ -27,8 +27,9 @@ dev = ["pytest>=8"]
 [project.scripts]
 reachy-mini-talkie = "reachy_mini_talkie.main:main"
 
+
 [project.entry-points."reachy_mini_apps"]
-reachy_mini_talkie = "reachy_mini_talkie.main:TalkieApp"
+reachy_mini_talkie = "reachy_mini_talkie.main:ReachyMiniTalkie"
 
 [project.urls]
 Homepage = "https://huggingface.co/spaces/09Catho/reachy-mini-talkie"

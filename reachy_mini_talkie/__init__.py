@@ -1,3 +1,3 @@
-from .main import TalkieApp
+from .main import ReachyMiniTalkie
 
-__all__ = ["TalkieApp"]
+__all__ = ["ReachyMiniTalkie"]

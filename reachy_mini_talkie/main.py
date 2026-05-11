@@ -16,6 +16,8 @@ from enum import Enum, auto
 
 import numpy as np
 
+from reachy_mini import ReachyMini, ReachyMiniApp
+
 from .choreography import Choreographer, Mood
 from .llm import TalkieClient
 from .stt import VADCapture, WhisperSTT
@@ -32,8 +34,8 @@ class State(Enum):
     SPEAKING = auto()
 
 
-class TalkieApp:
-    """Reachy Mini app — conforms to ReachyMiniApp protocol (run + stop_event)."""
+class ReachyMiniTalkie(ReachyMiniApp):
+    """Reachy Mini × Talkie-1930: The 1930 Broadcaster."""
 
     custom_app_url: str | None = None
 
@@ -53,7 +55,7 @@ class TalkieApp:
     # SDK entry point
     # ------------------------------------------------------------------ #
 
-    def run(self, reachy_mini, stop_event: threading.Event) -> None:
+    def run(self, reachy_mini: ReachyMini, stop_event: threading.Event) -> None:
         logger.info("=== The 1930 Broadcaster starting ===")
 
         # Boot all subsystems
@@ -159,7 +161,7 @@ class TalkieApp:
 
 def main() -> None:
     """CLI entry point — also called by the daemon via python -u -m reachy_mini_talkie.main."""
-    app = TalkieApp()
+    app = ReachyMiniTalkie()
     try:
         app.wrapped_run()
     except KeyboardInterrupt:
