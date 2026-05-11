@@ -35,25 +35,21 @@ Ask it about electricity. Ask it about the wireless. Ask it about Twitter. Diffe
 - `espeak-ng` for Kokoro phonemisation: `sudo apt-get install espeak-ng`
 - Python ≥ 3.10
 
-### Via the Reachy Mini App Store
-
-Find **The 1930 Broadcaster** in the app store and press Install.
-
-### Via CLI
-
-```bash
-uv pip install reachy-mini
-reachy-mini-app-assistant install reachy-mini-talkie
-reachy-mini-app-assistant start reachy-mini-talkie
-```
-
 ### From source
 
 ```bash
-git clone https://github.com/pollen-robotics/reachy-mini-talkie
+git clone https://github.com/09Catho/reachy-mini-talkie
 cd reachy-mini-talkie
-uv pip install -e ".[sim]"          # adds MuJoCo simulator
+sudo apt-get install espeak-ng
+uv pip install -e "."
 python -m reachy_mini_talkie         # smoke-test with mock robot
+```
+
+### With MuJoCo simulator (no hardware needed)
+
+```bash
+uv pip install -e ".[sim]"
+python -m reachy_mini_talkie
 ```
 
 ---

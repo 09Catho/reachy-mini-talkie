@@ -139,19 +139,19 @@
 
     <div class="install-cards">
       <div class="install-card">
-        <h3>Via the App Store</h3>
-        <p>Find <strong>The 1930 Broadcaster</strong> in the Reachy Mini app store and press Install.</p>
-        <a class="btn btn-primary" href="https://huggingface.co/reachy-mini" target="_blank" rel="noopener">Open App Store</a>
+        <h3>From Source</h3>
+        <pre><code>git clone https://github.com/09Catho/reachy-mini-talkie
+cd reachy-mini-talkie
+sudo apt-get install espeak-ng
+uv pip install -e "."
+python -m reachy_mini_talkie</code></pre>
+        <a class="btn btn-secondary" href="https://github.com/09Catho/reachy-mini-talkie" target="_blank" rel="noopener">⎇ &nbsp;View on GitHub</a>
       </div>
       <div class="install-card">
-        <h3>Via the CLI</h3>
-        <pre><code>uv pip install reachy-mini
-# on Raspberry Pi:
-sudo apt-get install espeak-ng
-reachy-mini-app-assistant install \
-  reachy-mini-talkie
-reachy-mini-app-assistant start \
-  reachy-mini-talkie</code></pre>
+        <h3>With MuJoCo Simulator</h3>
+        <p>No hardware needed — test the full pipeline in simulation first.</p>
+        <pre><code>uv pip install -e ".[sim]"
+python -m reachy_mini_talkie</code></pre>
       </div>
     </div>
 
