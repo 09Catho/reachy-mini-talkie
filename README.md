@@ -166,7 +166,7 @@ Apache 2.0 — see [LICENSE](LICENSE).
 >
 > Open-source, one-click install from the Reachy Mini app store.
 >
-> 🔗 Space: https://huggingface.co/spaces/reachy-mini/talkie-broadcaster  
+> 🔗 Space: https://huggingface.co/spaces/fangochan/reachy-mini-talkie  
 > 🔗 Repo: https://github.com/pollen-robotics/reachy-mini-talkie
 >
 > @ClementDelangue @Thom_Wolf @huggingface @pollenrobotics — thanks for the brief.
