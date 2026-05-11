@@ -157,9 +157,14 @@ class TalkieApp:
             time.sleep(len(chunk) / out_rate)
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """CLI entry point — also called by the daemon via python -u -m reachy_mini_talkie.main."""
     app = TalkieApp()
     try:
         app.wrapped_run()
     except KeyboardInterrupt:
         app.stop()
+
+
+if __name__ == "__main__":
+    main()

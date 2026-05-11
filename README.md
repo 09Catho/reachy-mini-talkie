@@ -1,5 +1,13 @@
 ---
+title: The 1930 Broadcaster
+emoji: 📻
+colorFrom: yellow
+colorTo: red
+sdk: static
+pinned: false
+short_description: Reachy Mini speaks like a 1930 BBC wireless broadcaster
 tags:
+  - reachy_mini
   - reachy_mini_python_app
 ---
 
