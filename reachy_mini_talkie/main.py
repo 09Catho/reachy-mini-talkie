@@ -45,6 +45,7 @@ class ReachyMiniTalkie(ReachyMiniApp):
         voice: str = "bm_george",
         speed: float = 0.92,
     ) -> None:
+        super().__init__()
         self._push_to_talk = push_to_talk
         self._voice = voice
         self._speed = speed
@@ -161,9 +162,19 @@ class ReachyMiniTalkie(ReachyMiniApp):
 
 def main() -> None:
     """CLI entry point — also called by the daemon via python -u -m reachy_mini_talkie.main."""
-    app = ReachyMiniTalkie()
+    import argparse
+    parser = argparse.ArgumentParser(description="The 1930 Broadcaster")
+    parser.add_argument("--sim", action="store_true", help="Run with MuJoCo simulator (no hardware needed)")
+    parser.add_argument("--push-to-talk", action="store_true")
+    parser.add_argument("--voice", default="bm_george")
+    args = parser.parse_args()
+
+    app = ReachyMiniTalkie(push_to_talk=args.push_to_talk, voice=args.voice)
     try:
-        app.wrapped_run()
+        if args.sim:
+            app.wrapped_run(spawn_daemon=True, use_sim=True)
+        else:
+            app.wrapped_run()
     except KeyboardInterrupt:
         app.stop()
 
