@@ -705,6 +705,22 @@ section {
 }
 
 
+/* Audio player inside radio panel */
+.radio-audio {
+  background: #080604;
+  border-top: 1px solid rgba(212,168,87,0.18);
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  justify-content: center;
+}
+.radio-audio audio {
+  width: 100%;
+  max-width: 500px;
+  height: 32px;
+  filter: sepia(0.4) hue-rotate(5deg);
+  accent-color: var(--gold);
+}
+
 /* ══════════════════════  INSTALL SECTION  ═══════════════════════ */
 
 .install-section {

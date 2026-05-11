@@ -6,7 +6,6 @@ dist/
 build/
 .venv/
 .env
-*.wav
 *.mp3
 *.log
 .pytest_cache/
