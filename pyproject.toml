@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "reachy-mini-talkie"
+version = "0.1.0"
+description = "Reachy Mini speaks like a 1930 BBC wireless broadcaster, powered by Talkie-1930 + Kokoro TTS"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+keywords = ["reachy-mini", "robotics", "tts", "llm", "1930", "talkie", "kokoro"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "reachy-mini>=1.7.1",
+  "gradio-client>=1.4",
+  "faster-whisper>=1.0.3",
+  "kokoro>=0.9.2",
+  "soundfile>=0.12",
+  "scipy>=1.11",
+  "numpy>=1.24",
+]
+
+[project.urls]
+Homepage = "https://huggingface.co/spaces/reachy-mini/talkie-broadcaster"
+Repository = "https://github.com/pollen-robotics/reachy-mini-talkie"
+"Bug Tracker" = "https://github.com/pollen-robotics/reachy-mini-talkie/issues"
+
+[project.optional-dependencies]
+sim = ["reachy-mini[mujoco]>=1.7.1"]
+dev = ["pytest>=8", "pytest-timeout"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["reachy_mini_talkie"]

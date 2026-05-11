@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The 1930 Broadcaster — Reachy Mini × Talkie</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════  HERO  ══════════════════════════════ -->
+  <header class="hero">
+    <div class="deco-border-top"></div>
+
+    <div class="hero-inner">
+      <div class="broadcast-badge">● ON AIR ●</div>
+
+      <div class="hero-emblem">
+        <svg viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
+          <!-- Gramophone horn silhouette over robot head -->
+          <circle cx="60" cy="72" r="28" fill="#d4a857" opacity="0.15"/>
+          <ellipse cx="60" cy="72" rx="18" ry="18" fill="none" stroke="#d4a857" stroke-width="2"/>
+          <!-- Horn bell -->
+          <path d="M60 52 Q80 30 105 20 Q95 35 75 50 Z" fill="#d4a857" opacity="0.7"/>
+          <line x1="60" y1="52" x2="75" y2="50" stroke="#d4a857" stroke-width="1.5"/>
+          <!-- Robot antenna stubs -->
+          <line x1="48" y1="56" x2="38" y2="40" stroke="#d4a857" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="38" cy="39" r="3" fill="#d4a857"/>
+          <line x1="72" y1="56" x2="82" y2="40" stroke="#d4a857" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="82" cy="39" r="3" fill="#d4a857"/>
+          <!-- Signal waves -->
+          <path d="M25 72 Q20 62 25 52" fill="none" stroke="#d4a857" stroke-width="1.5" opacity="0.5"/>
+          <path d="M18 78 Q10 62 18 46" fill="none" stroke="#d4a857" stroke-width="1" opacity="0.3"/>
+          <path d="M95 72 Q100 62 95 52" fill="none" stroke="#d4a857" stroke-width="1.5" opacity="0.5"/>
+          <path d="M102 78 Q110 62 102 46" fill="none" stroke="#d4a857" stroke-width="1" opacity="0.3"/>
+        </svg>
+      </div>
+
+      <p class="station-id">B · B · C &nbsp;·&nbsp; NINETEEN THIRTY</p>
+      <h1 class="hero-title">The 1930<br/>Broadcaster</h1>
+      <p class="hero-sub">Reachy Mini hosts a wireless from a world that ended in 1930</p>
+
+      <div class="hero-divider">
+        <span>✦</span><span class="line"></span><span>✦</span>
+      </div>
+
+      <p class="hero-desc">
+        Powered by <strong>Alec Radford's Talkie-1930</strong> — a 13 billion-parameter
+        language model trained on 260 billion tokens of pre-1931 English text — and
+        <strong>Kokoro-82M</strong>'s posh British voice, this app turns your Reachy Mini
+        into a 1920s BBC wireless announcer. It doesn't merely <em>sound</em> 1930.
+        It <em>thinks</em> 1930.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://huggingface.co/reachy-mini" target="_blank" rel="noopener">
+          ▶ &nbsp;Install on Reachy Mini
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/pollen-robotics/reachy-mini-talkie" target="_blank" rel="noopener">
+          ⎇ &nbsp;View Source
+        </a>
+      </div>
+    </div>
+
+    <div class="deco-border-bottom"></div>
+  </header>
+
+  <!-- ═══════════════════════════  HOW IT WORKS  ══════════════════════ -->
+  <section class="how-it-works">
+    <h2 class="section-title">How the Wireless Works</h2>
+    <div class="section-rule"></div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">Ⅰ</div>
+        <div class="step-icon">🎙</div>
+        <h3>You Speak</h3>
+        <p>
+          Reachy's four-microphone array captures your voice.
+          <em>faster-whisper</em> transcribes it locally on the robot's
+          Raspberry Pi — no cloud, no delay.
+        </p>
+      </div>
+
+      <div class="step-arrow">❧</div>
+
+      <div class="step">
+        <div class="step-number">Ⅱ</div>
+        <div class="step-icon">📡</div>
+        <h3>Talkie Thinks</h3>
+        <p>
+          Your words travel to <strong>Talkie-1930</strong>, a language model
+          whose entire world ended on 31 December 1930.
+          It replies in the vocabulary, syntax, and worldview of the era.
+        </p>
+      </div>
+
+      <div class="step-arrow">❧</div>
+
+      <div class="step">
+        <div class="step-number">Ⅲ</div>
+        <div class="step-icon">📻</div>
+        <h3>Reachy Broadcasts</h3>
+        <p>
+          <strong>Kokoro-82M</strong> speaks the reply in a measured
+          Received Pronunciation baritone at 92% speed — the exact cadence
+          of a 1930s BBC newsreader — while the robot's head and antennae
+          move in sync.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════  DEMO  ══════════════════════════════ -->
+  <section class="demo-section">
+    <h2 class="section-title">Sample Broadcast</h2>
+    <div class="section-rule"></div>
+    <p class="demo-prompt">
+      <em>"What is electricity?"</em>
+    </p>
+    <blockquote class="demo-reply">
+      "Electricity, my dear listener, is the invisible motive force that
+      has transformed civilisation within living memory. It flows through
+      copper wire as water through a conduit, powering the electric lamp,
+      the wireless set, and the tram. One need not grasp its mathematical
+      mysteries to appreciate that we live in an age of electrical wonder."
+    </blockquote>
+    <p class="demo-attribution">— Talkie-1930, spoken by Reachy Mini in the voice of <em>bm_george</em></p>
+  </section>
+
+  <!-- ═══════════════════════════  INSTALL  ═══════════════════════════ -->
+  <section class="install-section">
+    <h2 class="section-title">Installation</h2>
+    <div class="section-rule"></div>
+
+    <div class="install-cards">
+      <div class="install-card">
+        <h3>Via the App Store</h3>
+        <p>Find <strong>The 1930 Broadcaster</strong> in the Reachy Mini app store and press Install.</p>
+        <a class="btn btn-primary" href="https://huggingface.co/reachy-mini" target="_blank" rel="noopener">Open App Store</a>
+      </div>
+      <div class="install-card">
+        <h3>Via the CLI</h3>
+        <pre><code>uv pip install reachy-mini
+# on Raspberry Pi:
+sudo apt-get install espeak-ng
+reachy-mini-app-assistant install \
+  reachy-mini-talkie
+reachy-mini-app-assistant start \
+  reachy-mini-talkie</code></pre>
+      </div>
+    </div>
+
+    <div class="requirements">
+      <h3>Requirements</h3>
+      <ul>
+        <li>Reachy Mini Wireless (Raspberry Pi 5, 8 GB RAM)</li>
+        <li>Network connection for Talkie-1930 inference</li>
+        <li><code>espeak-ng</code> (apt) for Kokoro phonemisation</li>
+        <li>Python ≥ 3.10</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════  CREDITS  ═══════════════════════════ -->
+  <section class="credits-section">
+    <div class="section-rule"></div>
+    <div class="credits-grid">
+      <div class="credit">
+        <span class="credit-label">Language Model</span>
+        <a href="https://huggingface.co/talkie-lm/talkie-1930-13b-it" target="_blank" rel="noopener">
+          Talkie-1930 · Alec Radford, Nick Levine &amp; David Duvenaud
+        </a>
+      </div>
+      <div class="credit">
+        <span class="credit-label">Text-to-Speech</span>
+        <a href="https://huggingface.co/hexgrad/Kokoro-82M" target="_blank" rel="noopener">
+          Kokoro-82M · hexgrad
+        </a>
+      </div>
+      <div class="credit">
+        <span class="credit-label">Robot SDK</span>
+        <a href="https://github.com/pollen-robotics/reachy_mini" target="_blank" rel="noopener">
+          Reachy Mini SDK · Pollen Robotics
+        </a>
+      </div>
+      <div class="credit">
+        <span class="credit-label">Speech Recognition</span>
+        <a href="https://github.com/SYSTRAN/faster-whisper" target="_blank" rel="noopener">
+          faster-whisper · SYSTRAN
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════  FOOTER  ════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="deco-border-top"></div>
+    <p>
+      Apache-2.0 &nbsp;·&nbsp;
+      <a href="https://github.com/pollen-robotics/reachy-mini-talkie" target="_blank" rel="noopener">GitHub</a>
+      &nbsp;·&nbsp; Broadcasting since <span class="roman">MMXXVI</span>
+    </p>
+  </footer>
+
+</body>
+</html>
